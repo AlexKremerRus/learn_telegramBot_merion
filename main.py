@@ -38,6 +38,25 @@ try:
         except Exception as e:
             logger.error(e)
 
+    # @bot.message_handler(content_types=['sticker'])
+    # def send_sticker_message(message: types.Message):
+    #     try:
+    #         logger.info(f"message - {message.sticker.file_id}, from - {message.from_user.username}, in chat - {message.chat.id}")
+    #         bot.send_message(message.chat.id, messages.MESSAGE_STICKER, reply_to_message_id=message.message_id)
+    #     except Exception as e:
+    #         logger.error(e)
+
+
+    @bot.message_handler(content_types=['sticker'])
+    def send_sticker_message_with_sticker(message: types.Message):
+        try:
+            logger.info(f"message - {message.sticker.file_id}, from - {message.from_user.username}, in chat - {message.chat.id}")
+            bot.send_sticker(message.chat.id, message.sticker.file_id, reply_to_message_id=message.message_id)
+        except Exception as e:
+            logger.error(e)
+
+
+
     bot.infinity_polling(skip_pending=True)
 
 except Exception as e:
